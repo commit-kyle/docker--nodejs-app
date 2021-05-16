@@ -6,11 +6,14 @@ FROM node
 # Setting the working directory for our Image
 WORKDIR /app
 
-# Which files from our local machine should be added to our Image
-COPY . /app
+# Optimization -- avoids having to run "npm install" for every image build if dependencies haven't changed
+COPY package.json /app
 
 # Commands which need to be executed for our Image to be interpreted as intended
 RUN npm install
+
+# Which files from our local machine should be added to our Image
+COPY . /app
 
 # Exposing a port to our local system
 EXPOSE 80
